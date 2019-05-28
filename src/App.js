@@ -14,6 +14,14 @@ class App extends Component {
     ]
   };
 
+  constructor() {
+    super();
+  }
+
+  componentDidMount() {
+    //Ajax Call
+    //this.setState({ movies });
+  }
   handleDelete = id => {
     this.setState({ counters: this.state.counters.filter(el => el.id !== id) });
   };
@@ -28,11 +36,12 @@ class App extends Component {
     this.setState({ counters });
   };
 
-  handleDecriment = counter => {
+  handleDecrement = counter => {
     const counters = [...this.state.counters];
     counters.forEach(el => {
       if (el.id === counter.id) {
-        el.value--;
+        if (el.value > 0) el.value--;
+        if (el.value === 0) el.value = 0;
       }
     });
     this.setState({ counters });
@@ -57,7 +66,7 @@ class App extends Component {
           <Counters
             onDelete={this.handleDelete}
             onIncrement={this.handleIncrement}
-            onDecriment={this.handleDecriment}
+            onDecrement={this.handleDecrement}
             onReset={this.handleReset}
             counters={this.state.counters}
           />
