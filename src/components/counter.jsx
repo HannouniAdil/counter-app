@@ -1,11 +1,25 @@
 import React, { Component } from "react";
 class Counter extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    console.log("provProps", prevProps);
+    console.log("prevState", prevState);
+
+    if (prevProps.counter.value !== this.props.counter.value) {
+      //Ajax call and get data from the server
+    }
+  }
+
+  componentWillUnmount() {
+    console.log("App - Unmount");
+  }
   styles = {
     fontSize: 14,
     fontWeight: "bold"
   };
 
   render() {
+    const { onIncrement, onDelete, counter } = this.props;
+
     let classes = this.getBadgeClasses();
     return (
       <div>
@@ -13,13 +27,13 @@ class Counter extends Component {
           {this.formatCount()}
         </span>
         <button
-          onClick={() => this.props.onIncrement(this.props.counter)}
+          onClick={() => onIncrement(counter)}
           className="btn btn-secondary btn-sm"
         >
           Increment
         </button>
         <button
-          onClick={() => this.props.onDelete(this.props.counter.id)}
+          onClick={() => onDelete(counter.id)}
           className="btn-danger btn-sm m-2"
         >
           Delete
